@@ -1,8 +1,8 @@
 export class Digit {
 
-    _digit: number;
+    private _digit: number;
 
-    _pow: number;
+    private _pow: number;
 
     constructor(digit: number, pow: number) {
 
