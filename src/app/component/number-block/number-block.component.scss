@@ -1,0 +1,29 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.base10 {
+    margin: 4px;
+}
+
+.eggbox {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 4px 4px;
+
+    .dot {
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+
+    }
+
+
+    .dot--fill {
+        background-color: red;
+    }
+}
