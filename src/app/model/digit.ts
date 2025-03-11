@@ -1,16 +1,16 @@
 export class Digit {
 
-    private _digit: number;
+    private _symbol: number;
 
     private _pow: number;
 
-    constructor(digit: number, pow: number) {
+    constructor(symbol: number, pow: number) {
 
-        if (!Number.isInteger(digit)) {
-            throw new Error('digit must be integer');
+        if (!Number.isInteger(symbol)) {
+            throw new Error('symbol must be integer');
         }
 
-        if (digit < 0 || digit > 9) {
+        if (symbol < 0 || symbol > 9) {
             throw new Error('digit must be between 0 and 9');
         }
 
@@ -19,13 +19,13 @@ export class Digit {
             throw new Error('pow must be integer');
         }
 
-        this._digit = digit;
+        this._symbol = symbol;
         this._pow = pow;
     }
 
 
-    get digit() {
-        return this._digit;
+    get symbol() {
+        return this._symbol;
     }
 
     get pow() {
