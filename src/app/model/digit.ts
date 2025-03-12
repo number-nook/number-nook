@@ -40,4 +40,12 @@ export class Digit {
     get numSequence() {
         return this._numSequence;
     }
+
+    get before(): Digit {
+        return this._numSequence.digits[this.pow - 1];
+    }
+
+    get after(): Digit {
+        return this._numSequence.digits[this.pow + 1];
+    }
 }
