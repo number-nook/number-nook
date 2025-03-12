@@ -4,9 +4,14 @@
     align-items: center;
 }
 
-.base10 {
+.scale {
     margin: 4px;
+
+    .base10 {
+        font-size: 24px;
+    }
 }
+
 
 .eggbox {
     display: grid;
@@ -14,7 +19,7 @@
     gap: 4px 4px;
 
     .dot {
-        border: 1px solid black;
+        border: 1px solid red;
         border-radius: 50%;
         width: 12px;
         height: 12px;

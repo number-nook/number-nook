@@ -13,7 +13,8 @@ export class NumberBlockComponent {
 
   private static readonly GROUP_OF: number = 10;
 
-  @Input() digit: Digit;
+  @Input()
+  digit: Digit;
 
   get ten(): number[] {
     return Array.from({ length: NumberBlockComponent.GROUP_OF }, (_, i) => i + 1);
