@@ -25,4 +25,9 @@ export class NumSequence {
     get digits(): Digit[] {
         return this._digits;
     }
+
+
+    get value() {
+        return this._value;
+    }
 }
