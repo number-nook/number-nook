@@ -1,10 +1,14 @@
+import { NumSequence } from "./num-sequence";
+
 export class Digit {
+
+    private _numSequence: NumSequence;
 
     private _symbol: number;
 
     private _pow: number;
 
-    constructor(symbol: number, pow: number) {
+    constructor(numSequence: NumSequence, symbol: number, pow: number) {
 
         if (!Number.isInteger(symbol)) {
             throw new Error('symbol must be integer');
@@ -19,6 +23,7 @@ export class Digit {
             throw new Error('pow must be integer');
         }
 
+        this._numSequence = numSequence;
         this._symbol = symbol;
         this._pow = pow;
     }
@@ -30,5 +35,9 @@ export class Digit {
 
     get pow() {
         return this._pow;
+    }
+
+    get numSequence() {
+        return this._numSequence;
     }
 }
