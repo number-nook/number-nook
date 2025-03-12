@@ -29,15 +29,15 @@ export class Digit {
     }
 
 
-    get symbol() {
+    get symbol(): number {
         return this._symbol;
     }
 
-    get pow() {
+    get pow(): number {
         return this._pow;
     }
 
-    get numSequence() {
+    get numSequence(): NumSequence {
         return this._numSequence;
     }
 
