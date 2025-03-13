@@ -48,7 +48,7 @@ export class NumberToSpeechService {
       return 'zero';
     }
 
-    let pseudopow: number = digit.pow % 3;
+    let pseudopow: number = this.pseudopow(digit);
     let pseudoscale: string | undefined = this.numScaleService.from(pseudopow);
 
     // handle conversion in pseudo decimal place
@@ -68,7 +68,7 @@ export class NumberToSpeechService {
       if (digit.before?.symbol < 2) {
         // if tens < 20, handle as a single number name
         let tensPlace: Digit = digit.before;
-        let tens: number = tensPlace.symbol * Math.pow(10, tensPlace.pow);
+        let tens: number = tensPlace.symbol * Math.pow(10, this.pseudopow(tensPlace));
         speech = NumberToSpeechService.NUMBER_NAME.get(tens + digit.symbol)!;
       } else {
         // single number, get if dircetly
@@ -85,5 +85,10 @@ export class NumberToSpeechService {
     }
 
     return speech;
+  }
+
+  // return pseudo decimal place of group of each 3 digit
+  pseudopow(digit: Digit): number {
+    return digit.pow % 3;
   }
 }

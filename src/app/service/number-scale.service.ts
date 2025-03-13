@@ -9,6 +9,7 @@ export class NumberScaleService {
     [2, 'hundred'],
     [3, 'thousand'],
     [6, 'million'],
+    [9, 'billion'],
   ]);
 
   static readonly DECIMAL_PLACE = new Map([
