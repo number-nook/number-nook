@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Digit } from '../../model/digit';
+import { NumberToSpeechService } from '../../service/number-to-speech.service';
 
 @Component({
   selector: 'number-spell',
@@ -9,10 +10,16 @@ import { Digit } from '../../model/digit';
 })
 export class NumberSpellComponent {
 
-  @Input() digit: Digit;
+  @Input()
+  digit: Digit;
+
+  constructor(
+    private numToSpeechService: NumberToSpeechService) {
+
+  }
 
   get spell() {
-    return '';
+    return this.numToSpeechService.convert(this.digit);
   }
 
 }
