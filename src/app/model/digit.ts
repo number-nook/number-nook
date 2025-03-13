@@ -2,13 +2,13 @@ import { NumSequence } from "./num-sequence";
 
 export class Digit {
 
-    private _numSequence: NumSequence;
+    private _numSequence: NumSequence | null;
 
     private _symbol: number;
 
     private _pow: number;
 
-    constructor(numSequence: NumSequence, symbol: number, pow: number) {
+    constructor(numSequence: NumSequence | null = null, symbol: number, pow: number) {
 
         if (!Number.isInteger(symbol)) {
             throw new Error('symbol must be integer');
@@ -37,15 +37,21 @@ export class Digit {
         return this._pow;
     }
 
-    get numSequence(): NumSequence {
+    get numSequence(): NumSequence | null {
         return this._numSequence;
     }
 
     get before(): Digit {
-        return this._numSequence.digits[this.pow - 1];
+        if (this._numSequence === null) {
+            throw new Error('numSequence is null');
+        }
+        return this._numSequence.digits[this._numSequence.digits.length - this.pow - 2];
     }
 
     get after(): Digit {
-        return this._numSequence.digits[this.pow + 1];
+        if (this._numSequence === null) {
+            throw new Error('numSequence is null');
+        }
+        return this._numSequence.digits[this._numSequence.digits.length - this.pow];
     }
 }
