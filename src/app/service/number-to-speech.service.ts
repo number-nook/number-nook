@@ -8,6 +8,7 @@ import { NumberScaleService } from './number-scale.service';
 export class NumberToSpeechService {
 
   static readonly NUMBER_NAME = new Map([
+    [0, ''],
     [1, 'one'],
     [2, 'two'],
     [3, 'three'],
@@ -54,7 +55,9 @@ export class NumberToSpeechService {
     // handle conversion in pseudo decimal place
     if (pseudopow == 2) {
       // hundred
-      speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol) + ' ' + pseudoscale;
+      if (digit.symbol != 0) {
+        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol) + ' ' + pseudoscale;
+      }
     } else if (pseudopow == 1) {
       // tens
       if (digit.symbol < 2) {

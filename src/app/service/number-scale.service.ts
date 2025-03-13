@@ -23,6 +23,8 @@ export class NumberScaleService {
     [7, 'ten millions'],
     [8, 'hundred millions'],
     [9, 'billions'],
+    [10, 'ten billions'],
+    [11, 'hundred billions'],
   ]);
 
   constructor() { }
