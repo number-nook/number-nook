@@ -51,7 +51,6 @@ export class NumberToSpeechService {
     let pseudopow: number = digit.pow % 3;
     let pseudoscale: string | undefined = this.numScaleService.from(pseudopow);
 
-
     // handle conversion in pseudo decimal place
     if (pseudopow == 2) {
       // hundred
