@@ -1,3 +1,3 @@
 @for (d of numSequence.digits; track d) {
-  <number-card [digit]="d"></number-card>
+  <number-card [digit]="d" class="numbercard" [ngClass]="'numbercard--color'+d.pow"></number-card>
 }
