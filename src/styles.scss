@@ -1,4 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+$color0: #ff967d;
+$color1: #ffb64c;
+$color2: #fee440;
+$color3: #b7fa60;
+$color4: #4fff93;
+$color5: #25ffd6;
+$color6: #25fef6;
+$color7: #53e1ff;
+$color8: #86bcff;
+$color9: #dca5ff;
+$color10: #f693ff;
+$color11: #ff8dc9;
+
+
+@mixin numbercard--color($color--primary) {
+    $color--primary: scale-color($color--primary, $lightness: -20%);
+    $color--secondary : scale-color($color--primary, $lightness: -10%);
+
+    .numberblock {
+        .eggbox {
+            .dot {
+                border-color: $color--secondary;
+            }
+
+            .dot--fill {
+                background-color: $color--primary;
+            }
+
+        }
+    }
+
+    .number {
+        color: $color--primary;
+    }
+
+    .numberspell {
+        color: $color--primary;
+    }
+
+}
+
 html,
 body {
     height: 100%;
@@ -12,4 +53,56 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings: "wdth" 100;
+}
+
+.numbercard--color0 {
+    @include numbercard--color($color0);
+}
+
+.numbercard--color1 {
+    @include numbercard--color($color1);
+}
+
+.numbercard--color2 {
+    @include numbercard--color($color2);
+}
+
+.numbercard--color3 {
+    @include numbercard--color($color3);
+}
+
+.numbercard--color4 {
+    @include numbercard--color($color4);
+}
+
+.numbercard--color5 {
+    @include numbercard--color($color5);
+}
+
+.numbercard--color1 {
+    @include numbercard--color($color1);
+}
+
+.numbercard--color6 {
+    @include numbercard--color($color6);
+}
+
+.numbercard--color7 {
+    @include numbercard--color($color7);
+}
+
+.numbercard--color8 {
+    @include numbercard--color($color8);
+}
+
+.numbercard--color9 {
+    @include numbercard--color($color9);
+}
+
+.numbercard--color10 {
+    @include numbercard--color($color10);
+}
+
+.numbercard--color11 {
+    @include numbercard--color($color11);
 }
