@@ -17,6 +17,8 @@ $color11: #ff8dc9;
     $color--primary: scale-color($color--primary, $lightness: -20%);
     $color--secondary : scale-color($color--primary, $lightness: -10%);
 
+    color: $color--primary;
+
     .numberblock {
         .eggbox {
             .dot {
@@ -28,14 +30,6 @@ $color11: #ff8dc9;
             }
 
         }
-    }
-
-    .number {
-        color: $color--primary;
-    }
-
-    .numberspell {
-        color: $color--primary;
     }
 
 }

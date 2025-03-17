@@ -28,12 +28,27 @@ export class NumSequence {
         return this._sequence;
     }
 
+    get segment(): NumSegment[] {
+        return this._segments;
+    }
+
     get digits(): Digit[] {
         return this._digits;
     }
 
     get value() {
         return this._value;
+    }
+
+    get lastNonemptySegment() {
+        let seg = this._segments[0];
+        for (let i = this._segments.length - 1; i > 0; i--) {
+            seg = this._segments[i];
+            if (!seg.empty) {
+                return seg;
+            }
+        }
+        return seg;
     }
 
 }

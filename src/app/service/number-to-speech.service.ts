@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Digit } from '../model/digit';
 import { NumberScaleService } from './number-scale.service';
+import { NumSegment } from '../model/num-segment';
 
 @Injectable({
   providedIn: 'root'
@@ -38,15 +39,24 @@ export class NumberToSpeechService {
     [90, 'ninety'],
   ]);
 
+  static readonly AND = 'and ';
+
   constructor(
     private numScaleService: NumberScaleService) { }
 
   convert(digit: Digit) {
 
+    let numberName: string = '';
+    let andable = false;
     let speech: string = '';
 
     if (digit.segment!.numSequence.value == 0) {
       return 'zero';
+    }
+
+    // with 'and'
+    if (digit.segment?.numSequence.lastNonemptySegment === digit.segment) {
+      andable = true;
     }
 
     let pseudopow: number = this.pseudopow(digit);
@@ -56,7 +66,11 @@ export class NumberToSpeechService {
     if (pseudopow == 2) {
       // hundred
       if (digit.symbol != 0) {
-        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol) + ' ' + pseudoscale;
+        numberName = NumberToSpeechService.NUMBER_NAME.get(digit.symbol) + ' ';
+        speech = numberName + pseudoscale;
+        if (andable && digit.after.isEqualTo(0) && digit.after.after.isEqualTo(0)) {
+          digit.andable = true;
+        }
       }
     } else if (pseudopow == 1) {
       // tens
@@ -64,7 +78,9 @@ export class NumberToSpeechService {
         // one to ninteen treat as single number name, skip in tens position and handle in ones position
         speech = '';
       } else {
-        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol * Math.pow(10, pseudopow))!;
+        numberName = NumberToSpeechService.NUMBER_NAME.get(digit.symbol * Math.pow(10, pseudopow))!
+        speech = numberName;
+        digit.andable = andable;
       }
     } else {
       // ones
@@ -72,7 +88,10 @@ export class NumberToSpeechService {
         // if tens < 20, handle as a single number name
         let tensPlace: Digit = digit.before;
         let tens: number = tensPlace.symbol * Math.pow(10, this.pseudopow(tensPlace));
-        speech = NumberToSpeechService.NUMBER_NAME.get(tens + digit.symbol)!;
+        numberName = NumberToSpeechService.NUMBER_NAME.get(tens + digit.symbol)!
+        speech = numberName;
+        digit.andable = andable && numberName != '' && digit.before.before != undefined;
+
       } else {
         // single number, get if dircetly
         speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol)!;
@@ -80,11 +99,10 @@ export class NumberToSpeechService {
     }
 
     // add scale in actual decimal place
-    if (pseudoscale === undefined) {
+    if (!digit.segment?.isLast && !digit.segment?.empty) {
+      // if the segment is not last segment, and it is not empty
       let actualScale = this.numScaleService.from(digit.pow);
-      if (actualScale !== undefined) {
-        speech = `${speech} ${actualScale}`;
-      }
+      speech = `${speech} ${actualScale ?? ''}`;
     }
 
     return speech;
@@ -92,6 +110,6 @@ export class NumberToSpeechService {
 
   // return pseudo decimal place of 3-digit segment
   pseudopow(digit: Digit): number {
-    return digit.pow % 3;
+    return digit.pow % NumSegment.SIZE;
   }
 }

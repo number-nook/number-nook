@@ -9,6 +9,8 @@ export class Digit {
 
     private _pow: number;
 
+    andable: boolean = false;
+
 
     constructor(numSegment: NumSegment | null = null, symbol: number, pow: number) {
 
@@ -60,6 +62,10 @@ export class Digit {
     get segment(): NumSegment | null {
         // return segment of the digit in NumberSequence at most 3 digits
         return this._numSegment;
+    }
+
+    isEqualTo(sym: number) {
+        return this._symbol === sym;
     }
 
     toString(): string {
