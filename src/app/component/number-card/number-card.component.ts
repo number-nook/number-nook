@@ -11,6 +11,8 @@ import { NumberSpellComponent } from "../number-spell/number-spell.component";
 })
 export class NumberCardComponent {
 
-  @Input() digit: Digit;
+
+  @Input()
+  digit: Digit;
 
 }
