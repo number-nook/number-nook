@@ -1,4 +1,5 @@
 import { Digit } from "./digit";
+import { NumSegment } from "./num-segment";
 
 export class NumSequence {
 
@@ -8,13 +9,18 @@ export class NumSequence {
 
     private _digits: Digit[] = [];
 
+    private _segments: NumSegment[] = [];
+
     constructor(value: number) {
         this._value = value;
         // turn the integer into an array of each single digit
         this._sequence = this._value.toString().split('').map(Number);
-        // for each element of sequence, construct a Digit
-        for (let i = 0; i < this._sequence.length; i++) {
-            this._digits[i] = new Digit(this, this._sequence[i], this._sequence.length - 1 - i);
+        let size = NumSegment.SIZE;
+        // loop from the back of the sequence
+        for (let i = this._sequence.length; i > 0; i -= size) {
+            let segment = new NumSegment(this, Math.max(i - size, 0), i - 1);
+            this._segments.unshift(segment);
+            this._digits = [...segment.digits, ...this._digits];
         }
     }
 
@@ -26,8 +32,8 @@ export class NumSequence {
         return this._digits;
     }
 
-
     get value() {
         return this._value;
     }
+
 }
