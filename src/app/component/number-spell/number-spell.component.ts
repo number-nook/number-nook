@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Digit } from '../../model/digit';
 import { NumberToSpeechService } from '../../service/number-to-speech.service';
+import { NbspFallbackPipe } from '../../pipe/nbsp-fallback.pipe';
 
 @Component({
   selector: 'number-spell',
-  imports: [],
+  imports: [NbspFallbackPipe],
   templateUrl: './number-spell.component.html',
   styleUrl: './number-spell.component.scss'
 })

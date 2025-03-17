@@ -1,2 +1,2 @@
 <div class="and" [innerHTML]="andString()"></div>
-<div class="spell">{{ spell }}</div>
+<div class="spell" [innerHTML]="spell | nbspFallback"></div>
