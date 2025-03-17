@@ -1,14 +1,16 @@
+import { NumSegment } from "./num-segment";
 import { NumSequence } from "./num-sequence";
 
 export class Digit {
 
-    private _numSequence: NumSequence | null;
+    private _numSegment: NumSegment | null;
 
     private _symbol: number;
 
     private _pow: number;
 
-    constructor(numSequence: NumSequence | null = null, symbol: number, pow: number) {
+
+    constructor(numSegment: NumSegment | null = null, symbol: number, pow: number) {
 
         if (!Number.isInteger(symbol)) {
             throw new Error('symbol must be integer');
@@ -23,7 +25,7 @@ export class Digit {
             throw new Error('pow must be integer');
         }
 
-        this._numSequence = numSequence;
+        this._numSegment = numSegment;
         this._symbol = symbol;
         this._pow = pow;
     }
@@ -37,21 +39,31 @@ export class Digit {
         return this._pow;
     }
 
-    get numSequence(): NumSequence | null {
-        return this._numSequence;
-    }
-
     get before(): Digit {
-        if (this._numSequence === null) {
-            throw new Error('numSequence is null');
+        if (this._numSegment === null) {
+            throw new Error('numSegment is null');
         }
-        return this._numSequence.digits[this._numSequence.digits.length - this.pow - 2];
+        return this._numSegment.numSequence.digits[this._numSegment.numSequence.digits.length - this.pow - 2];
     }
 
     get after(): Digit {
-        if (this._numSequence === null) {
-            throw new Error('numSequence is null');
+        if (this._numSegment === null) {
+            throw new Error('numSegment is null');
         }
-        return this._numSequence.digits[this._numSequence.digits.length - this.pow];
+        return this._numSegment.numSequence.digits[this._numSegment.numSequence.digits.length - this.pow];
     }
+
+    set segment(seg: NumSegment) {
+        this._numSegment = seg;
+    }
+
+    get segment(): NumSegment | null {
+        // return segment of the digit in NumberSequence at most 3 digits
+        return this._numSegment;
+    }
+
+    toString(): string {
+        return this.symbol * Math.pow(10, this._pow) + '';
+    }
+
 }
