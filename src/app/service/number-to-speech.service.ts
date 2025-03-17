@@ -45,14 +45,14 @@ export class NumberToSpeechService {
 
     let speech: string = '';
 
-    if (digit.numSequence!.value == 0) {
+    if (digit.segment!.numSequence.value == 0) {
       return 'zero';
     }
 
     let pseudopow: number = this.pseudopow(digit);
     let pseudoscale: string | undefined = this.numScaleService.from(pseudopow);
 
-    // handle conversion in pseudo decimal place
+    // handle conversion in pseudo decimal place (3-digit segment)
     if (pseudopow == 2) {
       // hundred
       if (digit.symbol != 0) {
@@ -90,7 +90,7 @@ export class NumberToSpeechService {
     return speech;
   }
 
-  // return pseudo decimal place of group of each 3 digit
+  // return pseudo decimal place of 3-digit segment
   pseudopow(digit: Digit): number {
     return digit.pow % 3;
   }
