@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { Digit } from '../../model/digit';
 import { NumberCardComponent } from '../number-card/number-card.component';
 import { NumSequence } from '../../model/num-sequence';
@@ -18,6 +18,9 @@ export class NumberNookComponent {
 
   private _numSequence: NumSequence;
 
+  @ViewChild('numberInput', { static: false })
+  private numberInput: ElementRef<HTMLInputElement>;
+
   constructor() {
     this.integer = NumberNookComponent.INIT;
   }
@@ -36,6 +39,12 @@ export class NumberNookComponent {
 
     inputElement.value = int + '';
     this.integer = int;
+  }
+
+  @HostListener('click')
+  @HostListener('focus')
+  onFocus() {
+    this.numberInput.nativeElement.focus();
   }
 
   @Input()

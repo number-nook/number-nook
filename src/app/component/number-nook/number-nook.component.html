@@ -6,8 +6,10 @@
   ></number-card>
 }
 <input
+  #numberInput
   type="number"
   (input)="onNumberChange($event)"
+  class="input__number"
   [min]="min"
   [max]="max"
   [value]="init"
