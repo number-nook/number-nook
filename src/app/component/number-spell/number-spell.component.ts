@@ -13,6 +13,9 @@ export class NumberSpellComponent {
   @Input()
   digit: Digit;
 
+  private static readonly AND = 'and';
+
+
   constructor(
     private numToSpeechService: NumberToSpeechService) {
 
@@ -20,6 +23,10 @@ export class NumberSpellComponent {
 
   get spell() {
     return this.numToSpeechService.convert(this.digit);
+  }
+
+  andString() {
+    return this.digit.andable ? NumberSpellComponent.AND : '&nbsp;';
   }
 
 }
