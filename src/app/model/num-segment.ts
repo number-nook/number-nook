@@ -25,4 +25,16 @@ export class NumSegment {
         return this._digits;
     }
 
+    // return true if whole segment is 0
+    get empty() {
+        return this._digits.every(d => d.isEqualTo(0));
+    }
+
+    // return true if this segment is the last in numSequence
+    get isLast() {
+        let segs = this._numSequence.segment;
+        let seqLength = segs.length;
+        return this === segs[seqLength - 1];
+    }
+
 }
