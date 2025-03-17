@@ -35,7 +35,7 @@ describe('NumSequence', () => {
   });
 
   it('should have correct numSequence linkage', () => {
-    expect(secondDigit.numSequence).toEqual(numSequence);
+    expect(secondDigit.segment!.numSequence).toEqual(numSequence);
   });
 
   it('should return underfined when accessing digit before first', () => {
