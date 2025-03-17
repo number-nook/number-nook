@@ -24,15 +24,17 @@ export class NumberNookComponent {
 
   onNumberChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
-    let int = parseInt(inputElement.value);
+    let input = 0 + inputElement.value;
+    let int = parseInt(input);
 
     if (int > NumberNookComponent.MAX || int < NumberNookComponent.MIN) {
       event.preventDefault();
       int =
         Math.max(NumberNookComponent.MIN, Math.min(int, NumberNookComponent.MAX))
-      inputElement.value = int + '';
+
     }
 
+    inputElement.value = int + '';
     this.integer = int;
   }
 
