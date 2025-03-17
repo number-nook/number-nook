@@ -1,3 +1,14 @@
 @for (d of numSequence.digits; track d) {
-  <number-card [digit]="d" class="numbercard" [ngClass]="'numbercard--color'+d.pow"></number-card>
+  <number-card
+    class="numbercard"
+    [digit]="d"
+    [ngClass]="'numbercard--color' + d.pow"
+  ></number-card>
 }
+<input
+  type="number"
+  (input)="onNumberChange($event)"
+  [min]="min"
+  [max]="max"
+  [value]="init"
+/>
