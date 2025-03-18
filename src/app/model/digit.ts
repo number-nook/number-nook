@@ -9,9 +9,6 @@ export class Digit {
 
     private _pow: number;
 
-    andable: boolean = false;
-
-
     constructor(numSegment: NumSegment | null = null, symbol: number, pow: number) {
 
         if (!Number.isInteger(symbol)) {
