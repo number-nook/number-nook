@@ -57,7 +57,7 @@ export class NumberToSpeechService {
           andable = true;
         }
       } else if (pseudopow == 1) {
-        if (digit.symbol >= 2) {
+        if (digit.symbol >= 2 && digit.before) {
           andable = true;
         }
       } else {
