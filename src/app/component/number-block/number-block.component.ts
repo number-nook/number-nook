@@ -31,7 +31,12 @@ export class NumberBlockComponent {
   }
 
   get decimalPlace() {
-    return this.numScaleService.decimalPlace(this.digit.pow);
+    let dp = this.numScaleService.decimalPlace(this.digit.pow)?.split(' ');
+    if (dp!.length < 2) {
+      // assure it takes up 2 lines
+      dp?.unshift('');
+    }
+    return dp!.join('<br />');
   }
 
 }
