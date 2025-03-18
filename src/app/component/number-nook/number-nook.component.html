@@ -21,14 +21,14 @@
   </mat-grid-tile>
   <mat-grid-tile>
     <div class="button-wrap button-wrap__up">
-      <button mat-fab aria-label="add">
+      <button mat-fab aria-label="add" (click)="onUpClick()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
   </mat-grid-tile>
   <mat-grid-tile>
     <div class="button-wrap button-wrap__down">
-      <button mat-fab aria-label="minus">
+      <button mat-fab aria-label="minus" (click)="onDownClick()">
         <mat-icon>remove</mat-icon>
       </button>
     </div>

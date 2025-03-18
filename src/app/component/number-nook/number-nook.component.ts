@@ -62,6 +62,20 @@ export class NumberNookComponent {
     this._numSequence = new NumSequence(Math.trunc(int));
   }
 
+  onUpClick() {
+    let el = this.numberInput.nativeElement;
+    el.value = (Number(el.value) + 1) + '';
+
+    el.dispatchEvent(new Event('input'));
+  }
+
+  onDownClick() {
+    let el = this.numberInput.nativeElement;
+    el.value = (Number(el.value) - 1) + '';
+
+    el.dispatchEvent(new Event('input'));
+  }
+
   get numSequence() {
     return this._numSequence;
   }
