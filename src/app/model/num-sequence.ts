@@ -41,14 +41,13 @@ export class NumSequence {
     }
 
     get lastNonemptySegment() {
-        let seg = this._segments[0];
         for (let i = this._segments.length - 1; i > 0; i--) {
-            seg = this._segments[i];
+            let seg = this._segments[i];
             if (!seg.empty) {
                 return seg;
             }
         }
-        return seg;
+        return this._segments[0];;
     }
 
 }
