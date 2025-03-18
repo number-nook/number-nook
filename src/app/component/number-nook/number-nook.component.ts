@@ -28,6 +28,8 @@ export class NumberNookComponent {
 
   private _numSequence: NumSequence;
 
+  private _integer: number;
+
   @ViewChild('numberInput', { static: false })
   private numberInput: ElementRef<HTMLInputElement>;
 
@@ -37,8 +39,7 @@ export class NumberNookComponent {
 
   onNumberChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
-    let input = 0 + inputElement.value;
-    let int = parseInt(input);
+    let int = parseInt(0 + inputElement.value);
 
     if (int > NumberNookComponent.MAX || int < NumberNookComponent.MIN) {
       event.preventDefault();
@@ -59,7 +60,12 @@ export class NumberNookComponent {
 
   @Input()
   set integer(int: number) {
+    this._integer = int;
     this._numSequence = new NumSequence(Math.trunc(int));
+  }
+
+  get integer(): number {
+    return this._integer;
   }
 
   onUpClick() {
