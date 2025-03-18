@@ -1,16 +1,36 @@
-@for (d of numSequence.digits; track d) {
-  <number-card
-    class="numbercard"
-    [digit]="d"
-    [ngClass]="'numbercard--color' + d.pow"
-  ></number-card>
-}
-<input
-  #numberInput
-  type="number"
-  (input)="onNumberChange($event)"
-  class="input__number"
-  [min]="min"
-  [max]="max"
-  [value]="init"
-/>
+<mat-grid-list class="grid_list" cols="13" rowHeight="fit">
+  <mat-grid-tile class="tile_numbercard" colspan="12" rowspan="2">
+    <div class="numbercard_container">
+      @for (d of numSequence.digits; track d) {
+        <number-card
+          class="numbercard"
+          [digit]="d"
+          [ngClass]="'numbercard--color' + d.pow"
+        ></number-card>
+      }
+      <input
+        #numberInput
+        type="number"
+        (input)="onNumberChange($event)"
+        class="input__number"
+        [min]="min"
+        [max]="max"
+        [value]="init"
+      />
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="button-wrap button-wrap__up">
+      <button mat-fab aria-label="add">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div class="button-wrap button-wrap__down">
+      <button mat-fab aria-label="minus">
+        <mat-icon>remove</mat-icon>
+      </button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

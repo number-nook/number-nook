@@ -1,12 +1,22 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
-import { Digit } from '../../model/digit';
+import { CommonModule } from '@angular/common';
+
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 import { NumberCardComponent } from '../number-card/number-card.component';
 import { NumSequence } from '../../model/num-sequence';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'number-nook',
-  imports: [CommonModule, NumberCardComponent],
+  imports: [
+    CommonModule,
+    NumberCardComponent,
+    MatGridListModule,
+    MatButtonModule,
+    MatIconModule
+  ],
   templateUrl: './number-nook.component.html',
   styleUrl: './number-nook.component.scss'
 })
