@@ -27,7 +27,7 @@ export class NumberSpellComponent {
   }
 
   andString() {
-    return this.digit.andable ? NumberSpellComponent.AND : '';
+    return this.numToSpeechService.andable(this.digit) ? NumberSpellComponent.AND : '';
   }
 
 }

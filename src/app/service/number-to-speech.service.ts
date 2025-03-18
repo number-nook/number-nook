@@ -44,19 +44,39 @@ export class NumberToSpeechService {
   constructor(
     private numScaleService: NumberScaleService) { }
 
-  convert(digit: Digit) {
-
-    let numberName: string = '';
+  andable(digit: Digit): boolean {
     let andable = false;
+
+    let pseudopow = this.pseudopow(digit);
+
+    // only if this segment is the last non empty segment
+    if (digit.segment?.numSequence.lastNonemptySegment === digit.segment) {
+
+      if (pseudopow == 2) {
+        if (digit.after.isEqualTo(0) && digit.after.after.isEqualTo(0)) {
+          andable = true;
+        }
+      } else if (pseudopow == 1) {
+        if (digit.symbol >= 2) {
+          andable = true;
+        }
+      } else {
+        let ten = digit.before?.symbol * 10 + digit.symbol;
+        if (ten > 0 && ten < 20) {
+          if (digit.before.before != undefined) {
+            andable = true;
+          }
+        }
+      }
+    }
+    return andable;
+  }
+
+  convert(digit: Digit) {
     let speech: string = '';
 
     if (digit.segment!.numSequence.value == 0) {
       return 'zero';
-    }
-
-    // with 'and'
-    if (digit.segment?.numSequence.lastNonemptySegment === digit.segment) {
-      andable = true;
     }
 
     let pseudopow: number = this.pseudopow(digit);
@@ -66,11 +86,7 @@ export class NumberToSpeechService {
     if (pseudopow == 2) {
       // hundred
       if (digit.symbol != 0) {
-        numberName = NumberToSpeechService.NUMBER_NAME.get(digit.symbol) + ' ';
-        speech = numberName + pseudoscale;
-        if (andable && digit.after.isEqualTo(0) && digit.after.after.isEqualTo(0)) {
-          digit.andable = true;
-        }
+        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol) + ' ' + pseudoscale;
       }
     } else if (pseudopow == 1) {
       // tens
@@ -78,9 +94,7 @@ export class NumberToSpeechService {
         // one to ninteen treat as single number name, skip in tens position and handle in ones position
         speech = '';
       } else {
-        numberName = NumberToSpeechService.NUMBER_NAME.get(digit.symbol * Math.pow(10, pseudopow))!
-        speech = numberName;
-        digit.andable = andable;
+        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol * Math.pow(10, pseudopow))!;
       }
     } else {
       // ones
@@ -88,10 +102,7 @@ export class NumberToSpeechService {
         // if tens < 20, handle as a single number name
         let tensPlace: Digit = digit.before;
         let tens: number = tensPlace.symbol * Math.pow(10, this.pseudopow(tensPlace));
-        numberName = NumberToSpeechService.NUMBER_NAME.get(tens + digit.symbol)!
-        speech = numberName;
-        digit.andable = andable && numberName != '' && digit.before.before != undefined;
-
+        speech = NumberToSpeechService.NUMBER_NAME.get(tens + digit.symbol)!;
       } else {
         // single number, get if dircetly
         speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol)!;
