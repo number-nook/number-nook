@@ -31,6 +31,10 @@ export class NumSequence {
         let seqlen = this._sequence.length;
         let offset = this._digits.length - seqlen;
 
+        for (let i = 0; i < offset; i++) {
+            this._digits[i].neutralize;
+        }
+
         for (let i = 0; i < seqlen; i++) {
             let seq = this._sequence[i];
             let digit = this._digits[offset + i];

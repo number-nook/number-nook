@@ -3,6 +3,8 @@ import { NumSequence } from "./num-sequence";
 
 export class Digit {
 
+    static readonly INACTIVE_STATUE = -1;
+
     private _numSegment: NumSegment | null;
 
     private _symbol: number;
@@ -73,8 +75,12 @@ export class Digit {
         return this.symbol * Math.pow(10, this._pow) + '';
     }
 
+    neutralize() {
+        this._symbol = Digit.INACTIVE_STATUE;
+    }
+
     get initialized(): boolean {
-        return this._symbol != -1;
+        return this._symbol != Digit.INACTIVE_STATUE;
     }
 
 }
