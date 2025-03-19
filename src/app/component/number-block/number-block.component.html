@@ -6,6 +6,8 @@
 
 <div class="eggbox">
   @for (i of ten; track i) {
-    <div [ngClass]="{ 'dot--fill': i <= digit.symbol }" class="dot"></div>
+    <div [ngClass]="{ 'egg--fill': i <= digit.symbol }" class="egg">
+      <span class="size">{{ base10 }}</span>
+    </div>
   }
 </div>
