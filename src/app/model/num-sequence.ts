@@ -32,7 +32,7 @@ export class NumSequence {
         let offset = this._digits.length - seqlen;
 
         for (let i = 0; i < offset; i++) {
-            this._digits[i].neutralize;
+            this._digits[i].neutralize();
         }
 
         for (let i = 0; i < seqlen; i++) {
