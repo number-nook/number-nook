@@ -57,17 +57,17 @@ export class NumberToSpeechService {
     if (digit.segment?.numSequence.lastNonemptySegment === digit.segment) {
 
       if (pseudopow == 2) {
-        if (digit.after.isEqualTo(0) && digit.after.after.isEqualTo(0)) {
+        if (digit.after.isEqualTo(0) && digit.after.after.isEqualTo(0) && digit.before?.initialized) {
           andable = true;
         }
       } else if (pseudopow == 1) {
-        if (digit.symbol >= 2 && digit.before) {
+        if (digit.symbol >= 2 && digit.before.initialized) {
           andable = true;
         }
       } else {
         let ten = digit.before?.symbol * 10 + digit.symbol;
         if (ten > 0 && ten < 20) {
-          if (digit.before.before != undefined) {
+          if (digit.before.before.initialized) {
             andable = true;
           }
         }
@@ -106,7 +106,7 @@ export class NumberToSpeechService {
       }
     } else {
       // ones
-      if (digit.before?.symbol < 2) {
+      if (digit.before?.symbol < 2 && digit.before?.symbol >= 0) {
         // if tens < 20, handle as a single number name
         let tensPlace: Digit = digit.before;
         let tens: number = tensPlace.symbol * Math.pow(10, this.pseudopow(tensPlace));

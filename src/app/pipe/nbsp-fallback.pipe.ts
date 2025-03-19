@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NbspFallbackPipe implements PipeTransform {
 
   transform(value: string): string {
-    if (value.trim()) {
+    if (value?.trim()) {
       return value;
     } else {
       return '&nbsp;';

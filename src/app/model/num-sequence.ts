@@ -39,7 +39,7 @@ export class NumSequence {
             let seq = this._sequence[i];
             let digit = this._digits[offset + i];
             digit.symbol = seq;
-            digit.pow = seqlen - 1;
+            digit.pow = seqlen - 1 - i;
         }
     }
 
