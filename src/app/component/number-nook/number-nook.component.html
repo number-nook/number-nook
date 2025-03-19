@@ -5,9 +5,13 @@
         <number-card
           class="numbercard"
           [digit]="d"
-          [ngClass]="'numbercard--color' + d.pow"
+          [ngClass]="
+            'numbercard--color' +
+            (numSequence.digits.length - numSequence.digits.indexOf(d) - 1)
+          "
         ></number-card>
       }
+
       <input
         #numberInput
         type="number"

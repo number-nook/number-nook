@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { NumberBlockComponent } from "../number-block/number-block.component";
 import { Digit } from '../../model/digit';
 import { NumberSpellComponent } from "../number-spell/number-spell.component";
@@ -14,5 +14,10 @@ export class NumberCardComponent {
 
   @Input()
   digit: Digit;
+
+  @HostBinding('class.numbercard--deactivated')
+  get activated() {
+    return !this.digit.initialized;
+  }
 
 }

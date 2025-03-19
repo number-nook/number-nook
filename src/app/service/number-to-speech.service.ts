@@ -47,6 +47,10 @@ export class NumberToSpeechService {
   andable(digit: Digit): boolean {
     let andable = false;
 
+    if (!digit.initialized) {
+      return andable;
+    }
+
     let pseudopow = this.pseudopow(digit);
 
     // only if this segment is the last non empty segment
@@ -74,6 +78,10 @@ export class NumberToSpeechService {
 
   convert(digit: Digit) {
     let speech: string = '';
+
+    if (!digit.initialized) {
+      return speech;
+    }
 
     if (digit.segment!.numSequence.value == 0) {
       return 'zero';

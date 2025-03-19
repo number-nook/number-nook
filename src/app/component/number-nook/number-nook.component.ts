@@ -34,6 +34,7 @@ export class NumberNookComponent {
   private numberInput: ElementRef<HTMLInputElement>;
 
   constructor() {
+    this._numSequence = new NumSequence();
     this.integer = NumberNookComponent.INIT;
   }
 
@@ -61,7 +62,7 @@ export class NumberNookComponent {
   @Input()
   set integer(int: number) {
     this._integer = int;
-    this._numSequence = new NumSequence(Math.trunc(int));
+    this._numSequence.value = Math.trunc(int);
   }
 
   get integer(): number {
