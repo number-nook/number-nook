@@ -1,26 +1,41 @@
+import { TitleStrategy } from "@angular/router";
 import { Digit } from "./digit";
 import { NumSegment } from "./num-segment";
 
 export class NumSequence {
 
+    static readonly MAX_LENGTH: number = 12;
+
     private _value: number;
 
-    private _sequence: number[];
+    private _sequence: number[] = [];
 
     private _digits: Digit[] = [];
 
     private _segments: NumSegment[] = [];
 
-    constructor(value: number) {
+    constructor() {
+        for (let i = 0; i < NumSequence.MAX_LENGTH / NumSegment.SIZE; i++) {
+            let seg = new NumSegment();
+            seg.numSequence = this;
+            this._segments.push(seg);
+            this._digits = this._digits.concat(seg.digits);
+        }
+    }
+
+    set value(value: number) {
         this._value = value;
         // turn the integer into an array of each single digit
         this._sequence = this._value.toString().split('').map(Number);
-        let size = NumSegment.SIZE;
-        // loop from the back of the sequence
-        for (let i = this._sequence.length; i > 0; i -= size) {
-            let segment = new NumSegment(this, Math.max(i - size, 0), i - 1);
-            this._segments.unshift(segment);
-            this._digits = [...segment.digits, ...this._digits];
+
+        let seqlen = this._sequence.length;
+        let offset = this._digits.length - seqlen;
+
+        for (let i = 0; i < seqlen; i++) {
+            let seq = this._sequence[i];
+            let digit = this._digits[offset + i];
+            digit.symbol = seq;
+            digit.pow = seqlen - 1;
         }
     }
 

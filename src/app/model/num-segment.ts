@@ -1,3 +1,4 @@
+import { sequenceEqual } from "rxjs";
 import { Digit } from "./digit";
 import { NumSequence } from "./num-sequence";
 
@@ -9,16 +10,20 @@ export class NumSegment {
 
     private _digits: Digit[] = [];
 
-    constructor(numseq: NumSequence, p: number, q: number) {
-        this._numSequence = numseq;
-        for (let i = p; i <= q; i++) {
-            this._digits.push(new Digit(this, numseq.sequence[i], numseq.sequence.length - 1 - i));
+    constructor() {
+        for (let i = 0; i < NumSegment.SIZE; i++) {
+            let digit = new Digit();
+            digit.segment = this;
+            this._digits.push(digit);
         }
-
     }
 
     get numSequence() {
         return this._numSequence;
+    }
+
+    set numSequence(seq: NumSequence) {
+        this._numSequence = seq;
     }
 
     get digits(): Digit[] {
