@@ -121,7 +121,9 @@ export class NumberToSpeechService {
     if (!digit.segment?.isLast && !digit.segment?.empty) {
       // if the segment is not last segment, and it is not empty
       let actualScale = this.numScaleService.from(digit.pow);
-      speech = `${speech} ${actualScale ?? ''}`;
+      if (actualScale) {
+        speech = `${speech} ${actualScale} ,`;
+      }
     }
 
     return speech;
