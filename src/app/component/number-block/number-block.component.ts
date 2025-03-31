@@ -14,6 +14,8 @@ export class NumberBlockComponent {
 
   private static readonly GROUP_OF: number = 10;
 
+  private _puffIndex: number = -1;
+
   @Input()
   digit: Digit;
 
@@ -37,6 +39,19 @@ export class NumberBlockComponent {
       dp?.unshift('');
     }
     return dp!.join('<br />');
+  }
+
+  onTap(event: any, i: number) {
+    if (this._puffIndex != i) {
+      this._puffIndex = i;
+    } else {
+      this._puffIndex = -1;
+    }
+
+  }
+
+  get puffIndex(): number {
+    return this._puffIndex;
   }
 
 }

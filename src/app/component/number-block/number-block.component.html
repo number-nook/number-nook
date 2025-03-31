@@ -6,7 +6,12 @@
 
 <div class="eggbox">
   @for (i of ten; track i) {
-    <div [ngClass]="{ 'egg--fill': i <= digit.symbol }" class="egg">
+    <div
+      (tap)="onTap($event, i)"
+      [class.egg--puffed]="puffIndex == i"
+      [ngClass]="{ 'egg--fill': i <= digit.symbol }"
+      class="egg"
+    >
       <span class="size">{{ base10 }}</span>
     </div>
   }
