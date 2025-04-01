@@ -22,7 +22,7 @@ export class ShowcaseComponent implements AfterViewInit {
   }
 
   get rand() {
-    return Math.trunc(Math.random() * 100);
+    return Math.trunc(Math.random() * 10);
   }
 
 }
