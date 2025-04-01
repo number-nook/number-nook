@@ -1,2 +1,9 @@
 <div class="and" [innerHTML]="andString() | nbspFallback"></div>
-<div class="spell" [innerHTML]="spell | nbspFallback"></div>
+<div class="spell">
+  <span
+    class="spell__numex"
+    [ngClass]="{ 'spell__numex--empty': isEmptySpell }"
+    [innerHTML]="spell | nbspFallback"
+  ></span>
+  <span class="spell__comma"></span>
+</div>

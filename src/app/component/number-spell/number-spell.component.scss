@@ -5,4 +5,9 @@
 .spell {
     margin-bottom: 1em;
     font-weight: bold;
+
+    .spell__numex {
+        padding: 2px 8px;
+        border-radius: 8px;
+    }
 }

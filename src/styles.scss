@@ -32,6 +32,17 @@ $color11: #ff8dc9;
         }
     }
 
+    .numberspell {
+        .spell__numex {
+            background-color: $color--secondary;
+            color: white;
+        }
+
+        .spell__numex.spell__numex--empty {
+            background-color: transparent;
+        }
+    }
+
 }
 
 html,

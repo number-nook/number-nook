@@ -3,10 +3,11 @@ import { Digit } from '../../model/digit';
 import { NumberToSpeechService } from '../../service/number-to-speech.service';
 import { NbspFallbackPipe } from '../../pipe/nbsp-fallback.pipe';
 import { NumericalExpression } from '../../model/numerical-expression';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'number-spell',
-  imports: [NbspFallbackPipe],
+  imports: [CommonModule, NbspFallbackPipe],
   templateUrl: './number-spell.component.html',
   styleUrl: './number-spell.component.scss'
 })
@@ -22,12 +23,17 @@ export class NumberSpellComponent implements DoCheck {
   constructor(
     private numToSpeechService: NumberToSpeechService) {
   }
+
   ngDoCheck(): void {
     this.numex = this.numToSpeechService.convert(this.digit);
   }
 
   get spell() {
     return `${this.numex.cardinal} ${this.numex.numeral}`;
+  }
+
+  get isEmptySpell(): boolean {
+    return this.spell.trim() == '';
   }
 
   andString() {
