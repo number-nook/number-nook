@@ -7,8 +7,11 @@
 <div class="eggbox">
   @for (i of ten; track i) {
     <div
-      (tap)="onTap($event, i)"
-      [class.egg--puffed]="puffIndex == i"
+      on-tap="onTap($event, i)"
+      on-mouseenter="hoverIndex = i"
+      on-mouseleave="hoverIndex = -1"
+      [class.egg--puffed]="hoverIndex == i"
+      [class.egg--puffffed]="puffIndex == i"
       [ngClass]="{ 'egg--fill': i <= digit.symbol }"
       class="egg"
     >

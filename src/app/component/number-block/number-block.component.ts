@@ -16,6 +16,8 @@ export class NumberBlockComponent {
 
   private _puffIndex: number = -1;
 
+  hoverIndex: number = -1;
+
   @Input()
   digit: Digit;
 
