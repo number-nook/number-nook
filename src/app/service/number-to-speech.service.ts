@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Digit } from '../model/digit';
 import { NumberScaleService } from './number-scale.service';
 import { NumSegment } from '../model/num-segment';
+import { NumericalExpression } from '../model/numerical-expression';
 
 @Injectable({
   providedIn: 'root'
@@ -44,48 +45,24 @@ export class NumberToSpeechService {
   constructor(
     private numScaleService: NumberScaleService) { }
 
-  andable(digit: Digit): boolean {
-    let andable = false;
+
+
+  convert(digit: Digit): NumericalExpression {
+    let ex: NumericalExpression = new NumericalExpression();
+    let lastNonempty = false;
+
 
     if (!digit.initialized) {
-      return andable;
-    }
-
-    let pseudopow = this.pseudopow(digit);
-
-    // only if this segment is the last non empty segment
-    if (digit.segment?.numSequence.lastNonemptySegment === digit.segment) {
-
-      if (pseudopow == 2) {
-        if (digit.after.isEqualTo(0) && digit.after.after.isEqualTo(0) && digit.before?.initialized) {
-          andable = true;
-        }
-      } else if (pseudopow == 1) {
-        if (digit.symbol >= 2 && digit.before.initialized) {
-          andable = true;
-        }
-      } else {
-        let ten = digit.before?.symbol * 10 + digit.symbol;
-        if (ten > 0 && ten < 20) {
-          if (digit.before.before.initialized) {
-            andable = true;
-          }
-        }
-      }
-    }
-    return andable;
-  }
-
-  convert(digit: Digit) {
-    let speech: string = '';
-
-    if (!digit.initialized) {
-      return speech;
+      return ex;
     }
 
     if (digit.segment!.numSequence.value == 0) {
-      return 'zero';
+      ex.numeral = 'zero';
+      return ex;
     }
+
+    // only if this segment is the last non empty segment
+    lastNonempty = digit.segment?.numSequence.lastNonemptySegment === digit.segment
 
     let pseudopow: number = this.pseudopow(digit);
     let pseudoscale: string | undefined = this.numScaleService.from(pseudopow);
@@ -94,26 +71,33 @@ export class NumberToSpeechService {
     if (pseudopow == 2) {
       // hundred
       if (digit.symbol != 0) {
-        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol) + ' ' + pseudoscale;
+        ex.setExpression(NumberToSpeechService.NUMBER_NAME.get(digit.symbol)!, pseudoscale!);
+      }
+      if (digit.before?.initialized && digit.after.isEqualTo(0) && digit.after.after.isEqualTo(0)) {
+        // if it has a before segment, and its 2 tail 0
+        ex.andable = true && lastNonempty;
       }
     } else if (pseudopow == 1) {
       // tens
-      if (digit.symbol < 2) {
-        // one to ninteen treat as single number name, skip in tens position and handle in ones position
-        speech = '';
-      } else {
-        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol * Math.pow(10, pseudopow))!;
+      if (digit.symbol >= 2) {
+        // for one to ninteen, treat as single number name, skip in tens position and handle in ones position
+        ex.cardinal = NumberToSpeechService.NUMBER_NAME.get(digit.symbol * Math.pow(10, pseudopow))!;
+        if (digit.before.initialized) {
+          ex.andable = true && lastNonempty;
+        }
       }
     } else {
+      let ten = digit.before?.symbol * 10 + digit.symbol;
       // ones
-      if (digit.before?.symbol < 2 && digit.before?.symbol >= 0) {
-        // if tens < 20, handle as a single number name
-        let tensPlace: Digit = digit.before;
-        let tens: number = tensPlace.symbol * Math.pow(10, this.pseudopow(tensPlace));
-        speech = NumberToSpeechService.NUMBER_NAME.get(tens + digit.symbol)!;
+      if (ten > 0 && ten < 20) {
+        // if 1 <= tens < 20, handle as a single number name
+        ex.cardinal = NumberToSpeechService.NUMBER_NAME.get(ten)!;
+        if (digit.before.before.initialized) {
+          ex.andable = true && lastNonempty;
+        }
       } else {
-        // single number, get if dircetly
-        speech = NumberToSpeechService.NUMBER_NAME.get(digit.symbol)!;
+        // single number, get it dircetly
+        ex.cardinal = NumberToSpeechService.NUMBER_NAME.get(digit.symbol)!;
       }
     }
 
@@ -122,11 +106,11 @@ export class NumberToSpeechService {
       // if the segment is not last segment, and it is not empty
       let actualScale = this.numScaleService.from(digit.pow);
       if (actualScale) {
-        speech = `${speech} ${actualScale} ,`;
+        ex.numeral = actualScale;
       }
     }
 
-    return speech;
+    return ex;
   }
 
   // return pseudo decimal place of 3-digit segment
