@@ -32,6 +32,10 @@ export class NumberSpellComponent implements DoCheck {
     return `${this.numex.cardinal} ${this.numex.numeral}`;
   }
 
+  get comma() {
+    return this.numex.commable ? ',' : '';
+  }
+
   get isEmptySpell(): boolean {
     return this.spell.trim() == '';
   }

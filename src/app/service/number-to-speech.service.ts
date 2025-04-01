@@ -99,6 +99,10 @@ export class NumberToSpeechService {
         // single number, get it dircetly
         ex.cardinal = NumberToSpeechService.NUMBER_NAME.get(digit.symbol)!;
       }
+
+      if (!lastNonempty) {
+        ex.commable = true;
+      }
     }
 
     // add scale in actual decimal place
