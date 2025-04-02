@@ -1,0 +1,40 @@
+name: build-number-nook
+env:
+  TOKEN_GITHUB: ${{ secrets.FGPTA_NUMBER_NOOK }}
+  USER_NAME: mrbrique
+  USER_EMAIL: ${{ secrets.USER_EMAIL }}
+on: push
+jobs:
+  ng-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout number-nook
+        uses: actions/checkout@v4
+
+      - name: setup node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: install npm
+        run: npm install
+
+      - name: install @angualr/cli
+        run: npm install -g @angular/cli
+
+      - name: angular build
+        run: ng build
+
+      - name: commit to number-nook.github.io
+        run: |
+          cd ./dist/number-nook
+          git init -b main
+          git config --local user.name $USER_NAME
+          git config --local user.email $USER_EMAIL
+          echo local Git repository config completed
+          git status
+          git remote add origin https://$TOKEN_GITHUB@github.com/number-nook/number-nook.github.io.git
+          git checkout -b main
+          git add --all
+          git commit -m "Deploy to Github pages by build-number-nook"
+          git push origin main -f
