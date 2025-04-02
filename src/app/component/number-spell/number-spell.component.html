@@ -5,5 +5,5 @@
     [ngClass]="{ 'spell__numex--empty': isEmptySpell }"
     [innerHTML]="spell | nbspFallback"
   ></span>
-  <span class="spell__comma" [innerHTML]="comma | nbspFallback"></span>
+  <span class="spell__comma">{{ comma }}</span>
 </div>

@@ -29,7 +29,9 @@ export class NumberSpellComponent implements DoCheck {
   }
 
   get spell() {
-    return `${this.numex.cardinal} ${this.numex.numeral}`;
+    let numeral = this.numex.numeral;
+    let spell = this.numex.cardinal + (numeral ? ' ' + numeral : '');
+    return spell;
   }
 
   get comma() {

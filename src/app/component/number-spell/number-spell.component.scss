@@ -12,7 +12,7 @@
         border-radius: 8px;
     }
 
-    .spell__comma {
-        padding: 0 4px;
+    .spell__comma:not(:empty) {
+        padding-left: 8px;
     }
 }
