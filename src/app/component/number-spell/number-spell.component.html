@@ -1,9 +1,14 @@
 <div class="and" [innerHTML]="andString() | nbspFallback"></div>
 <div class="spell">
   <span
-    class="spell__numex"
-    [ngClass]="{ 'spell__numex--empty': isEmptySpell }"
-    [innerHTML]="spell | nbspFallback"
+    class="spell__cardinal"
+    [ngClass]="{ 'spell__cardinal--empty': numex.cardinal == '' }"
+    [innerHTML]="numex.cardinal | nbspFallback"
   ></span>
+  <span
+    class="span__numeral"
+    [ngClass]="{ 'span__numeral--empty': numex.numeral == '' }"
+    >{{ numex.numeral }}</span
+  >
   <span class="spell__comma">{{ comma }}</span>
 </div>

@@ -7,12 +7,17 @@
     margin-bottom: 1em;
     font-weight: bold;
 
-    .spell__numex {
+    .spell__cardinal {
         padding: 2px 8px;
         border-radius: 8px;
     }
 
-    .spell__comma:not(:empty) {
-        padding-left: 8px;
+    .span__numeral {
+        padding: 2px 8px;
     }
+
+    .span__numeral.span__numeral--empty {
+        padding: 0;
+    }
+
 }

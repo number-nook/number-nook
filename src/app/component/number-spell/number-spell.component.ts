@@ -16,7 +16,7 @@ export class NumberSpellComponent implements DoCheck {
   @Input()
   digit: Digit;
 
-  private numex: NumericalExpression;
+  private _numex: NumericalExpression;
 
   private static readonly AND = 'and';
 
@@ -25,25 +25,25 @@ export class NumberSpellComponent implements DoCheck {
   }
 
   ngDoCheck(): void {
-    this.numex = this.numToSpeechService.convert(this.digit);
+    this._numex = this.numToSpeechService.convert(this.digit);
   }
 
   get spell() {
-    let numeral = this.numex.numeral;
-    let spell = this.numex.cardinal + (numeral ? ' ' + numeral : '');
+    let numeral = this._numex.numeral;
+    let spell = this._numex.cardinal + (numeral ? ' ' + numeral : '');
     return spell;
   }
 
   get comma() {
-    return this.numex.commable ? ',' : '';
+    return this._numex.commable ? ',' : '';
   }
 
-  get isEmptySpell(): boolean {
-    return this.spell.trim() == '';
+  get numex(): NumericalExpression {
+    return this._numex;
   }
 
   andString() {
-    return this.numex.andable ? NumberSpellComponent.AND : '';
+    return this._numex.andable ? NumberSpellComponent.AND : '';
   }
 
 }

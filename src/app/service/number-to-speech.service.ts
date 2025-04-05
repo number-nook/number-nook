@@ -57,7 +57,7 @@ export class NumberToSpeechService {
     }
 
     if (digit.segment!.numSequence.value == 0) {
-      ex.numeral = 'zero';
+      ex.cardinal = 'zero';
       return ex;
     }
 

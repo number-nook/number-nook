@@ -33,12 +33,12 @@ $color11: #ff8dc9;
     }
 
     .numberspell {
-        .spell__numex {
+        .spell__cardinal {
             background-color: $color--secondary;
             color: white;
         }
 
-        .spell__numex.spell__numex--empty {
+        .spell__cardinal.spell__cardinal--empty {
             background-color: transparent;
         }
     }
